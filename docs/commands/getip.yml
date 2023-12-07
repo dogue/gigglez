@@ -1,0 +1,6 @@
+---
+name: getip
+type: channel
+description: 'Retrieves a player's IP address and GUID'
+usage: '!getip <server> <name or client number>'
+level: 600

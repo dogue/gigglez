@@ -1,0 +1,53 @@
+<?php
+
+// Anti-SOPA
+// Intended to warehouse IPs for important websites,
+// should they get yanked by the US gov
+
+if($level >= 300)
+{
+	if($word[0] == "!ipdb")
+	{
+		if(empty($word[1])) // No hostname given
+		{
+			send("PRIVMSG", $chan, "You must give a hostname; something like \"www.google.com\"");
+		}
+		else
+		{
+			//echo "Opening DB connection...\n";
+			$con = mysql_connect("localhost", "[REDACTED]", "[REDACTED]");
+			mysql_select_db("[REDACTED]", $con);
+			
+			$result = mysql_query("SELECT * FROM anti_sopa");
+			
+            // Check the database in case the given name already exists
+			while($row = mysql_fetch_array($result))
+			{
+				if($row['hostname'] == $word[1])
+				{
+					send("PRIVMSG", $chan, "That hostname is already in the database");
+					$match = true;
+				}
+			}
+			
+			if(!$match) // Didn't match an existing hostname, so resolve the IP and store it
+			{
+				$ndr = new Net_DNS_Resolver();
+				$resp = $ndr->search($word[1], "A");
+				$ip = $resp->answer[0]->address;
+				if(empty($ip))
+				{
+					send("PRIVMSG", $chan, "Could not resolve an address");
+				}
+				else
+				{
+					mysql_query("INSERT INTO anti_sopa (hostname, address) VALUES ('$word[1]', '$ip')");
+					send("PRIVMSG", $chan, "$word[1] ($ip) has been added to the database");
+				}
+				mysql_close($con);
+			}
+		}
+	}
+}
+
+?>

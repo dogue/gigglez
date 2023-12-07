@@ -1,0 +1,23 @@
+<?php
+
+if($word[0] == ".login")
+{
+	if(!empty($word[2]))
+	{
+		$result = $user->login($word[1], $word[2], $hostmask);
+		if($result == 0)
+		{
+			send("PRIVMSG", $nick, "Logged in successfully.");
+		}
+		elseif($result == ERR_NOSUCHUSER)
+		{
+			send("PRIVMSG", $nick, "Username not registered.");
+		}
+		elseif($result == ERR_BADPASS)
+		{
+			send("PRIVMSG", $nick, "Incorrect password. This event has been logged.");
+		}
+	}
+}
+
+?>

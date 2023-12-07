@@ -1,0 +1,6 @@
+---
+name: eightball
+type: channel
+description: 'Returns a random answer to a yes/no question'
+usage: '!eightball <question>'
+level: 300

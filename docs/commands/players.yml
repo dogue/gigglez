@@ -1,0 +1,6 @@
+---
+name: players
+type: channel
+description: 'Returns a list of players currently on a server'
+usage: '!players <server>'
+level: 300

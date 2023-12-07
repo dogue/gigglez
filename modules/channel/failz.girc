@@ -1,0 +1,19 @@
+<?php
+
+if($level >= 300) {
+	if($word[0] == "!failz") {
+		if(empty($word[1])) {
+			if($host != "~[REDACTED]@[REDACTED]") {
+				send("PRIVMSG",$chan,$nick . " has failed.");
+			}
+			else {
+				send("PRIVMSG",$chan,$nick . " is win!");
+			}
+		}
+		else {
+			send("PRIVMSG",$chan,$word[1] . " has failed.");
+		}
+	}
+}
+
+?>

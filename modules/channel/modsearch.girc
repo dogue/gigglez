@@ -1,0 +1,60 @@
+<?php
+
+if($level >= 600) {
+	if($word[0] == "!modsearch") {
+		$server = get_server($word[1]);
+		if(empty($server) || $server['b3'] == 0) {
+				send("PRIVMSG",$chan,"Invalid server specified.");
+		}
+		else {
+			$con = mysql_connect("localhost", $server['b3_user'], $server['b3_pass']);
+			mysql_select_db($server['b3_db'], $con);
+			
+			switch($word[2]) {
+				case 'superadmin':
+					$slevel = '128';
+					break;
+				case 'senioradmin':
+					$slevel = '64';
+					break;
+				case 'fulladmin':
+					$slevel = '32';
+					break;
+				case 'admin':
+					$slevel = '16';
+					break;
+				case 'mod':
+					$slevel = '8';
+					break;
+				case 'reg':
+					$slevel = '2';
+					break;
+				case 'user':
+					$slevel = '1';
+					break;
+				case 'none':
+					$slevel = '0';
+					break;
+			}
+			$result = mysql_query("SELECT * FROM ".$server['b3_prefix']."clients WHERE group_bits = '$slevel'");
+			$results = array();
+			//$pid_modsearch = pcntl_fork();
+			//if($pid_modsearch) {
+				while($row = mysql_fetch_array($result)) {
+					$seen = getdate($row['time_edit']);
+					array_push($results, $row['name']." | ".$row['id']." | ".$row['ip']." | ".$seen['mon']."-".$seen['mday']."-".$seen['year']."/".$seen['hours'].":".$seen['minutes'].":".$seen['seconds']);
+				}
+				mysql_close($con);
+				send("PRIVMSG",$chan,"Listing all ".$word[2]." players on ".$word[1].":");
+				foreach($results as $player) {
+					send("PRIVMSG",$chan,$player);
+					sleep(2);
+				}
+				send("PRIVMSG",$chan,"-- End of list --");
+			//	die();
+			//}
+		}
+	}
+}
+
+?>

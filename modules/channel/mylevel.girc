@@ -1,0 +1,9 @@
+<?php
+
+if($level >= 1){
+	if($word[0] == "!mylevel"){
+		send("PRIVMSG",$chan,"Your level is ".$level);
+	}
+}
+
+?>

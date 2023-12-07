@@ -1,0 +1,6 @@
+---
+name: query
+type: channel
+description: 'Returns the status of any Urban Terror server'
+usage: '!query <server address or hostname> [port]'
+level: 300

@@ -1,0 +1,37 @@
+<?php
+
+if($level >= 600) {
+	if($word[0] == "!getip") {
+		$server = get_server($word[1]);
+		if(empty($server) || $word[2] == "\0") {
+			send("NOTICE",$nick,"You must provide a server and a player name/client ID.");
+		}
+		else {
+				$pid_getip = pcntl_fork();
+				if($pid_getip) {
+					$query = new q3tool($server['address'], $server['port'], $server['password']);
+					$user = $query->send_rcon("dumpuser ".$word[2]);
+					$lines = explode("\n", $user);
+					$info = array();
+					foreach($lines as $line) {
+						$test = explode(" ", $line);
+						$data = count($test) - 1;
+						$info[$test[0]] = $test[$data];
+					}
+					//$ip = $info['ip'];
+					//$ip = preg_replace('/:[0-9]*/', '', $ip);
+					//$name = $info['name'];
+					//$guid = $info['cl_guid'];
+					if($info['name'] != null) {
+						send("NOTICE",$nick,$info['name']."	|	".$info['ip']."	|	".$info['cl_guid']);
+					}
+					else {
+						send("NOTICE",$nick,"Unable to get player info.");
+					}
+					die();
+				}
+		}
+	}
+}
+
+?>

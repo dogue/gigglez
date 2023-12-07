@@ -1,0 +1,6 @@
+---
+name: uptime
+type: channel
+description: 'Displays how long the bot has been running'
+usage: '!uptime'
+level: 1

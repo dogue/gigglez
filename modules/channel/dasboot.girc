@@ -1,0 +1,24 @@
+<?php
+
+if($level >= 600) {	
+	if($word[0] == "!dasboot") {
+		$server = get_server($word[1]);
+		if(empty($server)) {
+			send("PRIVMSG",$chan,"Invalid server specified.");
+		}
+		else {
+			if(empty($word[2])) {
+				send("PRIVMSG",$chan,"Correct usage: !dasboot server player");
+			}
+			else {
+					send("PRIVMSG",$chan,"Ich booten das n00b, " . $word[2] . "...");
+					$tool = new q3tool($server['address'], $server['port'], $server['password']);
+					$tool->send_rcon("bigtext \"This kick delivered to you by Gigglez...\"");
+					sleep(2);
+					$tool->send_rcon("kick " . $word[2]);
+			}
+		}
+	}
+}
+
+?>

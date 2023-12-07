@@ -1,0 +1,6 @@
+---
+name: geoip
+type: channel
+description: 'Attempts to determine someone's location based in their IP address'
+usage: '!geoip <IP address or hostname>'
+level: 300

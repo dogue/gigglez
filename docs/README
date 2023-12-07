@@ -1,0 +1,73 @@
+**************************************************
+  _____ _____ _____   _____      ____        _   
+ / ____|_   _|  __ \ / ____|    |  _ \      | |  
+| |  __  | | | |__) | |   ______| |_) | ___ | |_ 
+| | |_ | | | |  _  /| |  |______|  _ < / _ \| __|
+| |__| |_| |_| | \ \| |____     | |_) | (_) | |_ 
+ \_____|_____|_|  \_\\_____|    |____/ \___/ \__|
+
+**************************************************
+
+Info:
+	Developed and maintained by [REDACTED]
+	Authors:
+		[REDACTED] - [REDACTED]@[REDACTED]
+		[REDACTED] - [REDACTED]@[REDACTED]
+	Contact Us:
+		http://[REDACTED]
+		#[REDACTED] @ irc.gamesurge.net
+
+**************************************************
+
+Summary
+-------
+
+GIRC-Bot (or Gigglez IRC Bot) is a framework for building IRC bots written entirely in PHP.
+Originally developed as a private bot for the [REDACTED] clan (http://[REDACTED]) for administrating our Urban Terror servers,
+the project has since evolved into an open-source framework that anyone can use to build their own custom IRC bots.
+Built with a modular design, GIRC-Bot is designed to be easy to learn, easy to develop for, and easy to maintain, all without sacrificing functionality.
+
+
+Modules
+-------
+
+GIRC-Bot modules use the .girc extension (just a cosmetic choice) and are separated into various folders based on what events they handle.
+For example, a module that is designed to respond from commands sent via a channel go into the modules/channel folder.
+Modules are loaded each time one of the events is handled.
+This allows modules to be added/removed/modified on the fly, without the need to restart the bot.
+There are a few key pieces of data that are passed to the module when it is called.
+The $level variable (the user's access-level) is passed to all modules.
+However, the other data passed to the modules varies depending on the event being handled.
+See the example modules in each category for more information on what data each module receives.
+
+
+Config
+------
+
+The GIRC-Bot config is a YAML (http://yaml.org/) file containing the information the bot needs to connect to the server, access MySQL, and a few other things.
+See the comments in the config for more information.
+
+
+Database/User Privileges
+------------------------
+
+GIRC-Bot uses a MySQL database to store user privilege information. The privilege system is based on linking a numeric access-level designation to the user's user@host.
+For example, you might have an entry with the following: (hostmask, level) VALUES ('~[REDACTED]@[REDACTED]', '600').
+Included is a database creation script (docs/database_template.sql) that can be used to set up a table for the bot.
+Please note that this script does NOT create a database, but only the "girc_users" table.
+If you're unsure how to use this file, please see this page: http://dev.mysql.com/doc/refman/5.0/en/batch-commands.html
+
+
+Notes
+-----
+
+If you're using GIRC-Bot on Windows with PHP 5.3 (not sure about earlier versions), you will likely notice very poor performance.
+This is a bug in PHP, not in GIRC-Bot. This project is developed, maintained, and tested on Linux systems and runs without issue.
+I have researched several solutions (via a few hours with Google), and was unable to get the PHP CLI to perform normally under Windows 7 Enterprise x86.
+If you find a solution, or know if it works properly on a certain version of Windows, please let me know.
+
+
+Acknowedgements
+---------------
+
+Vlad Anderson, author of Spyc (http://code.google.com/p/spyc/)

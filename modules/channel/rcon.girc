@@ -1,0 +1,26 @@
+<?php
+
+//if($chan == "#[REDACTED]" || $chan == "#[REDACTED]") {
+	if($level >= 600) {
+		if($word[0] == "!rcon") {
+			$server = get_server($word[1]);
+			if(empty($server)) {
+				send("PRIVMSG",$chan,"Invalid server specified.");
+			}
+			else {
+				if(empty($word[2])) {
+					send("PRIVMSG",$chan,"Correct usage: !rcon <server> <command & arguments>");
+				}
+				else {
+					$tool = new q3tool($server['address'], $server['port'], $server['password']);
+					array_splice($word,0,2,"");
+					$text = implode(" ",$word);
+					$tool->send_rcon("$text");
+					send("PRIVMSG",$chan,"Command issued...");
+				}
+			}
+		}
+	}
+//}
+
+?>

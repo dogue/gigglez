@@ -1,0 +1,57 @@
+<?php
+
+if($level >= 300){
+	if($word[0] == "!eightball"){
+		if(empty($word[1])){
+			send("PRIVMSG",$chan,"Correct usage: !eightball <question>");
+		}
+		else {
+			$x = mt_rand(1,13);
+			switch ($x){
+				case 1:
+					send("PRIVMSG",$chan,"Yes.");
+					break;
+				case 2:
+					send("PRIVMSG",$chan,"No.");
+					break;
+				case 3:
+					send("PRIVMSG",$chan,"Not a chance.");
+					break;
+				case 4:
+					send("PRIVMSG",$chan,"Most likely.");
+					break;
+				case 5:
+					send("PRIVMSG",$chan,"Probably not.");
+					break;
+				case 6:
+					send("PRIVMSG",$chan,"It's possible.");
+					break;
+				case 7:
+					send("PRIVMSG",$chan,"Doubtful.");
+					break;
+				case 8:						
+					send("PRIVMSG",$chan,"Are you fucking stupid, " . $nick . "?");
+					break;
+				case 9:
+					send("PRIVMSG",$chan,"Gimme a doobie and I might tell ya.");
+					break;
+				case 10:
+					send("PRIVMSG",$chan,"Of course.");
+					break;
+				case 11:
+					send("PRIVMSG",$chan,"I don't think so.");
+					break;
+				case 12:
+					send("PRIVMSG",$chan,"Definitely.");
+					break;
+				case 13:
+					send("PRIVMSG",$chan,"You are eaten by a grue. Game over.");
+					break;
+				default:
+					send("PRIVMSG",$chan,"SCRIPT ERROR; MODULE: 'eightball.girc'");
+			}
+		}
+	}
+}
+
+?>

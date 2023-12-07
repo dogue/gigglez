@@ -1,0 +1,42 @@
+<?php
+
+if($level >= 800){
+	if($word[0] == "!setuser"){
+		if(!empty($word[2]))
+		{
+			$result = $user->set_access($word[1], $word[2]);
+			if($result == 0)
+			{
+				send("PRIVMSG", $chan, "User $word[1] set to level $word[2]");
+			}
+			else
+			{
+				send("PRIVMSG", $chan, "That user does not exist");
+			}
+		}
+		else
+		{
+			send("PRIVMSG", $chan, "Try !setuser <username> <level>");
+		}
+	}
+	if($word[0] == "!chkuser"){
+		if(!empty($word[1]))
+		{
+			$level = $user->get_access($word[1], GET_BY_USER);
+			if($level >= 0)
+			{
+				send("PRIVMSG",$chan,"User's level is: $level");
+			}
+			else
+			{
+				send("PRIVMSG", $chan, "That user does not exist");
+			}
+		}
+		else
+		{
+			send("PRIVMSG", $chan, "Try !chkuser <username>");
+		}
+	}
+}
+
+?>

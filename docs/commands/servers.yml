@@ -1,0 +1,6 @@
+---
+name: servers
+type: channel
+description: 'Returns a list of [REDACTED] servers and their addresses'
+usage: '!servers'
+level: 1

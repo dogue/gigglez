@@ -1,0 +1,6 @@
+---
+name: b3level
+type: channel
+description: 'Allows you to set a user's B3 access from IRC'
+usage: '!b3level <server> <user ID> <access level>'
+level: 600

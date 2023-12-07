@@ -1,0 +1,17 @@
+---
+# Command help file template
+
+# The name of the command (should be the same as this file minus .yml)
+name: mycommand
+
+# The type of command (channel, query, etc)
+type: channel
+
+# A brief description of the command
+description: 'Acts as a placeholder in the template'
+
+# Usage help for the command key: <required arg> [optional arg]
+usage: '!mycommand [something optional]' 
+
+# Required minimum level to execute your command
+level: 100

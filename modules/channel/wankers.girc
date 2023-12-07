@@ -1,0 +1,6 @@
+<?
+if(preg_match('/#remy/i', $message))
+{
+	send("PRIVMSG", $chan, "!ban *!*@".$rawdata[3]);
+}
+?>

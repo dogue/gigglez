@@ -1,0 +1,6 @@
+---
+name: youtube
+type: channel
+description: 'Returns five video links from a YouTube search'
+usage: '!youtube <search terms>'
+level: 300

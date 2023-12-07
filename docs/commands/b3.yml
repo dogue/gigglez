@@ -1,0 +1,6 @@
+---
+name: b3
+type: channel
+description: 'Allows you to execute B3 commands from IRC'
+usage: '!b3 <command text>'
+level: 600

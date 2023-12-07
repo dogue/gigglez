@@ -1,0 +1,6 @@
+---
+name: baninfo
+type: channel
+description: 'Allows you to retrieve a list of bans for a player'
+usage: '!baninfo <server> <user ID> [[-l n]|[a]]' 
+level: 600

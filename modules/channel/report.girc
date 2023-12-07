@@ -1,0 +1,26 @@
+<?php
+
+if($level >= 500)
+{
+	if($word[0] == "!report")
+	{
+		if(empty($word[1]))
+		{
+			send("PRIVMSG", $chan, "You must provide a description of the issue.");
+		}
+		else
+		{
+			array_splice($word,0,1,"");
+                        $desc = implode(" ",$word);
+
+			$con = mysql_connect("localhost", "[REDACTED]", "[REDACTED]");
+			mysql_select_db("[REDACTED]", $con);
+
+			mysql_query("INSERT INTO girc_bugs (reporter, status, description) VALUES ('$nick', 'open', '$desc')");
+
+			mysql_close($con);
+		}
+	}
+}
+
+?>

@@ -1,0 +1,7 @@
+status <server> should check for empty response
+psearch/ipsearch should return no more than 10-15 results without force option
+add reminder to B3 commands about not using @
+---------------------------------------------------------------------------------------
+add core logging
+help system/command list - yml for each command with help
+B3 database configuration in g_servers

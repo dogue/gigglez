@@ -1,0 +1,6 @@
+---
+name: map
+type: channel
+description: 'Cycles a server to the specified map'
+usage: '!map <server> <map name>'
+level: 600

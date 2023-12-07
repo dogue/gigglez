@@ -1,0 +1,37 @@
+<?php
+
+// B3 Prune
+// Removes several B3 database entries for cleanup purposes
+// Currently disabled
+
+if($level >= 600)
+{
+	if($word[0] == "!b3prune")
+    {
+		$server = get_server($word[1]);
+		if(empty($server) || $server['b3'] == 0)
+		{
+			send("PRIVMSG", $chan, "Invalid server specified.");
+		}
+		else
+		{
+			if(empty($word[2]))
+            {
+				send("PRIVMSG",$chan,"You must provide at least one player ID.");
+			}
+			else
+			{
+				$con = mysql_connect("localhost", $server['db_user'], $server['db_pass']);
+				mysql_select_db($server['b3_db'], $con);
+				array_splice($word, 0, 2);
+				foreach($word as $id)
+				{
+					mysql_query("DELETE FROM ".$server['b3_prefix']."clients WHERE id = '".$id."'");
+				}
+				send("PRIVMSG", $chan, "Pruning done. ".count($word)." entries removed.");
+			}
+		}
+	}
+}
+
+?>

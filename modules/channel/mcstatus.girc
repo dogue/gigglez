@@ -1,0 +1,37 @@
+<?php
+
+if ($level >= 300)
+{
+	if ($message == "!mcstatus")
+	{
+		send("PRIVMSG", $chan, "Querying the server...");
+		$mc = new McTool("[REDACTED]");
+		$info = $mc->get_status();
+
+		send("PRIVMSG", $chan, "$info[hostname] ($info[version]) - $info[numplayers]/$info[maxplayers]");
+	}
+	
+	if($message == "!mcplayers")
+	{
+		send("PRIVMSG", $chan, "Querying the server...");
+		$mc = new McTool("[REDACTED]");
+		$name = $mc->get_status("hostname");
+		$players = $mc->get_players();
+		
+		if (!empty ($players[0]))
+		{
+			foreach ($players as $player)
+			{
+				$playerlist .= "$player, ";
+			}
+
+			send("PRIVMSG", $chan, "$name: $playerlist");
+		}
+		else
+		{
+			send("PRIVMSG", $chan, "The server is currently empty.");
+		}
+	}
+}
+
+?>

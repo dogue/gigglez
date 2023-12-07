@@ -1,0 +1,6 @@
+---
+name: rmuser
+type: channel
+description: 'Removes the access of a user'
+usage: '!rmuser <user@host>'
+level: 800

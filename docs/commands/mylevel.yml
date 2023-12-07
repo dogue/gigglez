@@ -1,0 +1,6 @@
+---
+name: mylevel
+type: channel
+description: 'Tells you what your access level with the bot is'
+usage: '!mylevel'
+level: 1

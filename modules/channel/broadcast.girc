@@ -1,0 +1,14 @@
+<?php
+
+if($level >= 600) {
+	if($word[0] == "!broadcast") {
+		array_splice($word, 0, 1, "");
+		$msg = ltrim(implode(" ", $word));
+		foreach($config['bot']['channels'] as $chan) {
+			send("PRIVMSG",$chan,"ATTN: ".$msg);
+			sleep(1);
+		}
+	}
+}
+
+?>

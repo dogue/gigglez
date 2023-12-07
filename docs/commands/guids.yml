@@ -1,0 +1,6 @@
+---
+name: guids
+type: channel
+description: 'ATTEMPTS to return a list of players and GUIDS -- VERY BUGGY, PLEASE AVOID'
+usage: '!guids <server>'
+level: 600

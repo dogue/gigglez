@@ -1,0 +1,21 @@
+<?php
+
+if($level >= 600) {
+	if($word[0] == "!ircslap") {
+		if(empty($word[1])) {
+			send("PRIVMSG",$chan,"You must specify a target");
+		}
+		else {
+			if($word[1] != "[REDACTED]" && $word[1] != "[REDACTED]") {
+			send("PRIVMSG","ChanServ",$chan." kick ".$word[1]." Feel the pimp hand!");
+			sleep(1);
+			sendsimple("INVITE",$word[1]." ".$chan);
+			}
+			else {
+				send("PRIVMSG","ChanServ",$chan." kick ".$nick." I don't think so, son.");
+			}
+		}
+	}
+}
+
+?>

@@ -1,0 +1,6 @@
+---
+name: mcplayers
+type: channel
+description: 'Shows a list of players currently on the [REDACTED] Minecraft server'
+usage: '!mcplayers'
+level: 300

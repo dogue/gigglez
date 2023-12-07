@@ -1,0 +1,11 @@
+<?php
+
+if($level >= 800)
+{
+	if($word[0] == ".part")
+	{
+		sendsimple("PART", $word[1]);
+	}
+}
+
+?>

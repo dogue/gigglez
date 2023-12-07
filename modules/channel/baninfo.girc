@@ -1,0 +1,53 @@
+<?php
+
+if($level >= 600)
+{
+	if($word[0] == "!baninfo")
+	{
+		$server = get_server($word[1]);
+		if(empty($server) || $server['b3'] == 0)
+		{
+			send("PRIVMSG", $chan, "Invalid server specified.");
+		}
+		else
+		{
+            $word[2] = str_replace("@", "", $word[2]);
+			switch($word[3]) {
+					case "":
+						$bans = get_baninfo($server, $word[2]);
+						foreach($bans as $ban) {
+							send("PRIVMSG",$chan,$ban);
+							sleep(2);
+						}
+						send("PRIVMSG",$chan,"-- End of list --");
+						break;
+					case "-a":
+						$bans = get_baninfo($server, $word[2], "a");
+						foreach($bans as $ban) {
+							send("PRIVMSG",$chan,$ban);
+							sleep(2);
+						}
+						send("PRIVMSG",$chan,"-- End of list --");
+						break;
+					case "-l":
+						if(empty($word[4])) {
+							send("PRIVMSG",$chan,"Correct usage: !baninfo <server> <id> -l <number>");
+						}
+						else {
+							$bans = get_baninfo($server, $word[2], "l", $word[4]);
+							foreach($bans as $ban) {
+								send("PRIVMSG",$chan,$ban);
+								sleep(2);
+							}
+							send("PRIVMSG",$chan,"-- End of list --");
+						}
+						break;
+					default:
+						send("PRIVMSG",$chan,"Invalid parameter: ".$word[3]);
+						break;
+			}
+		}
+	}
+}
+
+?>

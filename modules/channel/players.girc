@@ -1,0 +1,34 @@
+<?php
+
+if($level >= 300){
+	if($word[0] == "!players"){
+		$server = get_server($word[1]);
+		if(empty($server)){
+			send("PRIVMSG",$chan,"Invalid server specified.");
+		}
+		else {
+			send("PRIVMSG",$chan,"Querying the server, please wait...");
+			$tool = new q3tool($server['address'], $server['port'], "");
+			$player_count = $tool->get_info("players");
+			$map = $tool->get_info("map");
+			$name = $tool->get_info("name");
+			$type = $tool->get_info("gametype");			
+			$players = $tool->get_info("playerlist");
+			if($player_count >= 1) {
+				foreach($players as $player){
+					$playerlist .= $player['name']. " | ";
+				}
+				sleep(1);
+				send("PRIVMSG",$chan,$name." | ".$type." | ".$map);
+				sleep(1);
+				send("PRIVMSG",$chan,$playerlist);
+			}
+			else {
+				sleep(1);
+				send("PRIVMSG",$chan,$name." is currently empty.");
+			}		
+		}
+	}
+}
+
+?>

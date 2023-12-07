@@ -1,0 +1,13 @@
+<?php
+
+if($level >= 1)
+{
+	if(preg_match('/(#urtpug)|(urtpug)|(pug)|(ringer needed)|(need a ringer)/i', $message) == true && $chan != "#[REDACTED]") {
+		if($level < 500)
+		{
+			send("PRIVMSG",$chan,"Hi, I am Gigglez, and I'm a bot. I can do a lot, including speaking out against PUG spam. =)");
+		}
+	}
+}
+
+?>

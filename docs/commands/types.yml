@@ -1,0 +1,6 @@
+---
+name: types
+type: channel
+description: 'Returns the list of Urban Terror gametypes and their integer identifiers'
+usage: '!types'
+level: 1

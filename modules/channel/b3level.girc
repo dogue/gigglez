@@ -1,0 +1,88 @@
+<?php
+
+// B3 Level
+// Changes a user's authority level with B3 on the servers
+
+if($level >= 600)
+{
+	if($word[0] == "!b3level")
+    {
+		$server = get_server($word[1]); // Ensure the given server is valid and runs B3
+		if(empty($server) || $server['b3'] == 0)
+		{
+			send("PRIVMSG",$chan,"Invalid server specified.");
+		}
+		else
+		{
+			$con = mysql_connect("localhost", $server['b3_user'], $server['b3_pass']);
+			mysql_select_db($server['b3_db'], $con);
+			$user = str_replace('@', '', $word[2]); // Strip any unnecessary @'s
+            
+            // Updates the user's database entry with the appropriate information
+			switch($word[3]) {
+				case "senioradmin":
+					$level = "64";
+					mysql_query("UPDATE ".$server['b3_prefix']."clients SET group_bits = '$level' WHERE id = '$user'");
+					mysql_query("UPDATE ".$server['b3_prefix']."clients SET auto_login = '1' WHERE id = '$user'");
+					send("PRIVMSG",$chan,"User entry updated.");
+					break;
+				case "fulladmin":
+					$level = "32";
+					mysql_query("UPDATE ".$server['b3_prefix']."clients SET group_bits = '$level' WHERE id = '$user'");
+					mysql_query("UPDATE ".$server['b3_prefix']."clients SET auto_login = '1' WHERE id = '$user'");
+					send("PRIVMSG",$chan,"User entry updated.");
+					break;
+				case "admin":
+					$level = "16";
+					mysql_query("UPDATE ".$server['b3_prefix']."clients SET group_bits = '$level' WHERE id = '$user'");
+					mysql_query("UPDATE ".$server['b3_prefix']."clients SET auto_login = '1' WHERE id = '$user'");
+					send("PRIVMSG",$chan,"User entry updated.");
+					break;
+				case "mod":
+					$level = "8";
+					mysql_query("UPDATE ".$server['b3_prefix']."clients SET group_bits = '$level' WHERE id = '$user'");
+					mysql_query("UPDATE ".$server['b3_prefix']."clients SET auto_login = '1' WHERE id = '$user'");
+					send("PRIVMSG",$chan,"User entry updated.");
+					break;
+				case "reg":
+					$level = "2";
+					mysql_query("UPDATE ".$server['b3_prefix']."clients SET group_bits = '$level' WHERE id = '$user'");
+					mysql_query("UPDATE ".$server['b3_prefix']."clients SET auto_login = '1' WHERE id = '$user'");
+					send("PRIVMSG",$chan,"User entry updated.");
+				case "user":
+					$level = "1";
+					mysql_query("UPDATE ".$server['b3_prefix']."clients SET group_bits = '$level' WHERE id = '$user'");
+					mysql_query("UPDATE ".$server['b3_prefix']."clients SET auto_login = '1' WHERE id = '$user'");
+					send("PRIVMSG",$chan,"User entry updated.");
+					break;
+				case "superadmin":
+					send("PRIVMSG",$chan,"For security reasons, I cannot set a Super Admin.");
+					break;
+				default:
+					send("PRIVMSG",$chan,"Invalid userlevel specified.");
+					break;
+			}		
+		}
+	}
+	if($word[0] == "!b3remove") // Removes a database entry entirely, for cleanup purposes
+    {
+		$server = get_server($word[1]);
+		if(empty($server) || $server['b3'] == 0)
+		{
+			send("PRIVMSG",$chan,"Invalid server specified.");
+		}
+		else
+		{
+			if(empty($word[2]))
+            {
+				send("PRIVMSG",$chan,"You must provide a client ID.");
+			}
+			else {
+				mysql_query("DELETE FROM ".$server['b3_prefix']."clients WHERE id = '".$word[2]."'");
+			}
+			send("PRIVMSG",$chan,"Entry removed.");
+		}
+	}
+}
+
+?>

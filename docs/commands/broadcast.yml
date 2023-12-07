@@ -1,0 +1,6 @@
+---
+name: broadcast
+type: channel
+description: 'Sends a message to all of the bot's channels'
+usage: '!broadcast <message>'
+level: 600

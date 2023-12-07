@@ -1,0 +1,6 @@
+---
+name: status
+type: channel
+description: 'Shows the current status for [REDACTED] servers'
+usage: '!status [server]'
+level: 300

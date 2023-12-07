@@ -1,0 +1,8 @@
+<?php
+
+if($nick == "Zod_" || $nick == "Zod__")
+{
+	send("PRIVMSG","ChanServ",$chan." kick Zod_ Trollolololol!");
+}
+
+?>

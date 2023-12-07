@@ -1,0 +1,6 @@
+---
+name: levels
+type: channel
+description: 'Gives a brief run-down of the bot's access levels'
+usage: '!levels'
+level: 1

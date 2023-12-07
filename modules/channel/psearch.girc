@@ -1,0 +1,93 @@
+<?php
+
+if($level >= 600) {
+	if($word[0] == "!psearch") {
+		$server = get_server($word[1]);
+		if(empty($server) || $server['b3'] == 0) {
+			send("PRIVMSG",$chan,"Invalid server specified.");
+		}
+		else {
+			$con = mysql_connect("localhost", $server['b3_user'], $server['b3_pass']);
+			mysql_select_db($server['b3_db'], $con);
+			
+			if(empty($word[3])) {
+				$result = mysql_query("SELECT * FROM ".$server['b3_prefix']."clients WHERE name LIKE '%".str_replace('#','', $word[2])."%'");
+			}
+			else {
+				switch($word[3]) {
+					case 'superadmin':
+						$slevel = '128';
+						break;
+					case 'senioradmin':
+						$slevel = '64';
+						break;
+					case 'fulladmin':
+						$slevel = '32';
+						break;
+					case 'admin':
+						$slevel = '16';
+						break;
+					case 'mod':
+						$slevel = '8';
+						break;
+					case 'reg':
+						$slevel = '2';
+						break;
+					case 'user':
+						$slevel = '1';
+						break;
+					case 'none':
+						$slevel = '0';
+						break;
+				}
+				$result = mysql_query("SELECT * FROM ".$server['b3_prefix']."clients WHERE name LIKE '%".$word[2]."%' AND group_bits = '$slevel'");
+			}
+			//$pid_psearch = pcntl_fork();
+		//	if(!$pid_psearch) {
+				//$child_psearch = posix_getpid();
+				//$child_psearch2 = posix_getppid();
+				while($player = mysql_fetch_array($result, MYSQL_BOTH)) {
+					$seen = getdate($player['time_edit']);
+					switch($player['group_bits']) {
+						case '0':
+							$plevel = 'No Level';
+							break;
+						case '1':
+							$plevel = 'User';
+							break;
+						case '2':
+							$plevel = 'Regular';
+							break;
+						case '8':
+							$plevel = 'Moderator';
+							break;
+						case '16':
+							$plevel = 'Admin';
+							break;
+						case '32':
+							$plevel = 'Full Admin';
+							break;
+						case '64':
+							$plevel = 'Senior Admin';
+							break;
+						case '128':
+							$plevel = 'Super Admin';
+							break;
+						default:
+							$plevel = "!!-ERROR-!!";
+							break;
+					}
+					send("PRIVMSG",$chan,$player['name']." | ".$player['ip']." | ".$plevel." | ".$player['id']." | ".$seen['mon']."-".$seen['mday']."-".$seen['year']."/".$seen['hours'].":".$seen['minutes'].":".$seen['seconds']);
+					sleep(2);
+				}
+				send("PRIVMSG",$chan,"-- End of list --");
+			//	exit;
+			//}
+			//while (pcntl_waitpid(0, $status) != -1) {
+        //		$status = pcntl_wexitstatus($status);
+    	//	}
+		}
+	}
+}
+
+?>

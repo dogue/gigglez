@@ -1,0 +1,47 @@
+<?php
+
+if($level >= 300) {
+	if($word[0] == "!status") {
+		if(empty($word[1])) {
+			$servers = all_servers();
+			send("PRIVMSG",$chan,"Querying the servers, please wait...");
+			sleep(1);
+			//$pid_status = pcntl_fork();
+			//if($pid_status) {
+				foreach($servers as $server) {
+					$tool = new q3tool($server['address'], $server['port'], "");
+					if($tool->get_info("name")) {
+						send("PRIVMSG",$chan,$tool->get_info("players")."/".$tool->get_info("maxplayers")." | ".$tool->get_info("name")." | ".$tool->get_info("gametype")." | ".$tool->get_info("map"));
+						sleep(2);
+					}
+					else {
+						send("PRIVMSG",$chan,"!!--ERROR--!! CHECK SERVER ".$server['alias']);
+						sleep(2);
+					}
+				}
+			//	die("TESTING!");
+			//}
+		}
+		else {
+			$server = get_server($word[1]);
+			if(empty($server)) {
+				send("PRIVMSG",$chan,"Invalid server specified.");
+			}
+			else {
+				
+				//foreach($config['aliases'] as $alias) {
+					//if($word[1] == $alias) {
+						$tool = new q3tool($server['address'], $server['port'], "");
+						//break;
+					//}
+					
+				//}
+			
+			send("PRIVMSG",$chan,$tool->get_info("players")."/".$tool->get_info("maxplayers")." | ".$tool->get_info("name")." | ".$tool->get_info("gametype")." | ".$tool->get_info("map"));
+			}
+		
+		}
+	}
+}
+
+?>

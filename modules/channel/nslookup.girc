@@ -1,0 +1,22 @@
+<?php
+
+if($level >= 500)
+{
+    if($word[0] == "!nslookup")
+    {
+        if(empty($word[1]))
+        {
+            send("PRIVMSG", $chan, "You must supply a hostname to resolve.");
+        }
+        else
+        {
+            $dns = new Net_DNS_Resolver();
+            $ans = $dns->search($word[1], 'A');
+            $ip = $ans->answer[0]->address;
+            
+            send("PRIVMSG", $chan, "Resolves to: ".$ip);
+        }
+    }
+}
+
+?>

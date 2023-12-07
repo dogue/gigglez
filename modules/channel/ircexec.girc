@@ -1,0 +1,43 @@
+<?php
+
+if($level >= 800) {
+	if($word[0] == "!ircexec") {
+		if(empty($word[1])) {
+			send("PRIVMSG",$chan,"Um...you should probably give me a command, jackass.");
+		}
+		else {
+			array_splice($word,0,1,"");
+			$cmd = implode(" ",$word);
+			sendsimple($cmd);
+		}
+	}
+}
+
+if($level >= 600) {
+	if($word[0] == "!gop") {
+		if(empty($word[1])) {
+			sendsimple("MODE $chan +o $nick");
+		}
+		else {
+			sendsimple("MODE $chan +o ".$word[1]);
+		}
+	}
+	if($word[0] == "!gkick") {
+		if(empty($word[1])) {
+			send("PRIVMSG", $chan, "Kick whom?");
+		}
+		else {
+			sendsimple("KICK $chan ".$word[1]);
+		}
+	}
+	if($word[0] == "!gvo") {
+		if(empty($word[1])) {
+			sendsimple("MODE $chan +v $nick)");
+		}
+		else {
+			sendsimple("MODE $chan +v ".$word[1]);
+		}
+	}
+}
+
+?>

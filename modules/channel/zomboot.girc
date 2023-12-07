@@ -1,0 +1,13 @@
+<?php
+
+if($level >= 500) {
+	if($message == "!zomboot") {
+		$server = get_server("mod");
+		$client = mt_rand(0,31);
+		send("PRIVMSG",$chan,"Clearing a slot...");
+		$tool = new q3tool($server['address'], $server['port'], $server['password']);
+		$tool->send_rcon("kick " . $client);
+	}
+}
+
+?>

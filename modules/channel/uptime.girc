@@ -1,0 +1,15 @@
+<?php
+
+// Tells how long the bot has been running
+if($message == "!uptime")
+{	
+	$now = time();
+	if($now - $tmronline >= 30)
+	{
+		$script_dauer = duration($script_start, time());
+		send("PRIVMSG",$chan,"I've been up now for about $script_dauer");
+		$tmronline = time();
+	}
+}
+
+?>

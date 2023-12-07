@@ -1,0 +1,6 @@
+---
+name: google
+type: channel
+description: 'Returns search results and links from Google'
+usage: '!google <search terms>'
+level: 500

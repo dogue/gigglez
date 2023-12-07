@@ -1,0 +1,6 @@
+---
+name: enable
+type: channel
+description: 'Enables a disabled channel module for the bot'
+usage: '!enable <module>
+level: 800

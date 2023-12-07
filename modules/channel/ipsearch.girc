@@ -1,0 +1,74 @@
+<?php
+
+if($level >= 600) {
+	if($word[0] == "!ipsearch") {
+		$server = get_server($word[1]);
+		if(empty($server) || $server['b3'] == 0) {
+			send("PRIVMSG",$chan,"Invalid server specified.");
+		}
+		else {
+			$con = mysql_connect("localhost", $server['b3_user'], $server['b3_pass']);
+			mysql_select_db($server['b3_db'], $con);
+			
+			if(preg_match('/[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}/', $word[2])) {							// no wildcards
+				$result = mysql_query("SELECT * FROM ".$server['b3_prefix']."clients WHERE ip = '".$word[2]."'");
+			}
+			elseif(preg_match('/\*\.\*\.\*\.\*/', $word[2])) {														// four wildcards, because I know some dumbass will try it...
+				send("PRIVMSG",$chan,".......");
+			}
+			elseif(preg_match('/[0-9]{1,3}\.([0-9]{1,3})|\*\.([0-9]{1,3})|\*\.([0-9]{1,3})|\*/', $word[2])) {		// wildcards
+				$ip = preg_replace('/(\.\*)/', '', $word[2]);
+				$result = mysql_query("SELECT * FROM ".$server['b3_prefix']."clients WHERE ip LIKE '".$ip."%'");
+			}			
+			else {
+				send("PRIVMSG",$chan,"Invalid IP provided.");
+			}
+			if(!empty($result)) {
+				//$pid_ipsearch = pcntl_fork();
+				//if($pid_ipsearch) {
+					while($player = mysql_fetch_array($result)) {
+						$seen = getdate($player['time_edit']);
+						switch($player['group_bits']) {
+							case '0':
+								$plevel = 'No Level';
+								break;
+							case '1':
+								$plevel = 'User';
+								break;
+							case '2':
+								$plevel = 'Regular';
+								break;
+							case '8':
+								$plevel = 'Moderator';
+								break;
+							case '16':
+								$plevel = 'Admin';
+								break;
+							case '32':
+								$plevel = 'Full Admin';
+								break;
+							case '64':
+								$plevel = 'Senior Admin';
+								break;
+							case '128':
+								$plevel = 'Super Admin';
+								break;
+							default:
+								$plevel = "!!-ERROR-!!";
+								break;
+						}
+						send("PRIVMSG",$chan,$player['name']." | ".$player['ip']." | ".$plevel." | ".$player['id']." | ".$seen['mon']."-".$seen['mday']."-".$seen['year']."/".$seen['hours'].":".$seen['minutes'].":".$seen['seconds']);
+						sleep(2);
+					}
+					send("PRIVMSG",$chan,"-- End of list --");
+				//	die();
+				//}
+			}
+			//else {
+			//	send("PRIVMSG",$chan,"No results found.");
+			//}
+		}
+	}
+}
+
+?>

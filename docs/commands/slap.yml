@@ -1,0 +1,6 @@
+---
+name: slap
+type: channel
+description: 'Slaps a player on a server'
+usage: '!slap <server> <name or client number>'
+level: 600

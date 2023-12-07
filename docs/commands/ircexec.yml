@@ -1,0 +1,6 @@
+---
+name: ircexec
+type: channel
+description: 'Executes an IRC command as the bot'
+usage: '!ircexec <command>'
+level: 800

@@ -1,0 +1,26 @@
+<?php
+
+// This module allows users to perform a YouTube search that retrieves up to five links
+// This module makes use of the GData YouTube API
+
+if($level >= 300)
+{
+	if($word[0] == "!youtube")
+	{
+		array_splice($word,0,1,"");
+		$word = str_replace("'", '', $word);
+		$args = htmlspecialchars(str_replace(' ', '+', implode(" ",$word)), ENT_QUOTES);
+//		$args = str_replace("'", "", $args);
+		$rawdata = file_get_contents("https://gdata.youtube.com/feeds/api/videos?q=$args&max-results=5");
+		$xml = simplexml_load_string($rawdata);
+		$i = 1;
+		foreach($xml->entry as $video)
+		{
+			send("PRIVMSG", $chan, "$i. ".$video->title[0]." | ".$video->link["href"]);
+			sleep(1);
+			$i++;
+		}
+	}
+}
+
+?>

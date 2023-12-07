@@ -1,0 +1,11 @@
+<?php
+
+if($level >= 1)
+{
+	if($message == "!girc")
+	{
+		send("PRIVMSG", $chan, "Powered by GIRC-Bot, by The Code-Crew. http://git.code-crew.net/girc-bot");
+	}
+}
+
+?>

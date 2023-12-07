@@ -1,0 +1,41 @@
+<?php
+
+if($level >= 300) {
+	if($word[0] == "!geoip") {
+		if(empty($word[1])) {
+			send("PRIVMSG",$chan,"I need an IP to do that...");
+		}
+		else {
+			if(preg_match("/^([1-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])" . 
+            "(\.([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])){3}$/", $word[1])) {
+				$country_inst = Net_GeoIP::getInstance('/home/gigglez/geoip/GeoIP.dat');
+				$country = $country_inst->lookupCountryName($word[1]);
+				$city_inst = Net_GeoIP::getInstance('/home/gigglez/geoip/GeoLiteCity.dat');
+				$city_data = $city_inst->lookupLocation($word[1]);
+				$city = $city_data->city;
+				$region = $city_data->region;
+				send("PRIVMSG",$chan,$word[1]." is located in $city, $region in $country");
+			}
+			else {
+				//send("PRIVMSG",$chan,"Invalid address....noob.");
+				$ndr = new Net_DNS_Resolver();
+				$answer = $ndr->search($word[1], "A");
+				$ip = $answer->answer[0]->address;
+				if(!empty($ip)) {
+					$country_inst = Net_GeoIP::getInstance('/home/gigglez/geoip/GeoIP.dat');
+					$country = $country_inst->lookupCountryName($ip);
+					$city_inst = Net_GeoIP::getInstance('/home/gigglez/geoip/GeoLiteCity.dat');
+					$city_data = $city_inst->lookupLocation($ip);
+					$city = $city_data->city;
+					$region = $city_data->region;
+					send("PRIVMSG",$chan,$word[1]." is located in $city, $region in $country");
+				}
+				else {
+					send("PRIVMSG",$chan,"Could not resolve an address.");
+				}
+			}
+		}
+	}
+}
+
+?>

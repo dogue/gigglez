@@ -1,0 +1,6 @@
+---
+name: modsearch
+type: channel
+description: 'Searches a B3 database by access level and returns matches'
+usage: '!modsearch <server> <access level>'
+level: 600

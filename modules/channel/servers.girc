@@ -1,0 +1,27 @@
+<?php
+
+if($level >= 1) {
+	if($message == "!servers") {
+		send("PRIVMSG",$chan,"[REDACTED] Servers:");
+		sleep(1);
+		$servers = all_servers();
+		print_r($servers);
+		//$pid_servers = pcntl_fork();
+		//if($pid_servers) {
+			foreach($servers as $server) {
+				$tool = new q3tool($server['address'], $server['port'], "");
+				if($tool->get_info('name')){
+					$name = $tool->get_info('name');
+					send("PRIVMSG",$chan,$name." -- ".$server['address'].":".$server['port']);
+				}
+				else {
+					send("PRIVMSG",$chan,"!!--ERROR--!! CHECK SERVER ".$server['alias']);
+				}
+				sleep(1);
+			}
+		//	die();
+		//}
+	}
+}
+
+?>

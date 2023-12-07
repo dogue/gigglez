@@ -1,0 +1,6 @@
+---
+name: mcstatus
+type: channel
+description: 'Shows information on the [REDACTED] Minecraft server'
+usage: '!mcstatus'
+level: 300

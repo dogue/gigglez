@@ -1,0 +1,24 @@
+<?php
+
+if($level >= 500) {
+	if($word[0] == "!scream"){
+		if(empty($word[1])){
+			send("PRIVMSG",$chan,"Correct usage: !scream <message to be screamed>");
+		}
+		else {
+			array_splice($word,0,1,"");
+			$scream = implode(" ",$word);
+			//$pid_scream = pcntl_fork();
+			//if($pid_scream) {
+				send("PRIVMSG",$chan,strtoupper(ltrim($scream)));
+				send("PRIVMSG",$chan,strtoupper(ltrim($scream)));
+				send("PRIVMSG",$chan,strtoupper(ltrim($scream)));
+				send("PRIVMSG",$chan,strtoupper(ltrim($scream)));
+				send("PRIVMSG",$chan,strtoupper(ltrim($scream)));
+				//die();
+		//	}
+		}
+	}
+}
+
+?>

@@ -1,0 +1,44 @@
+<?php
+
+if($level >= 500) {
+	if($word[0] == "!google") {
+		for ($i = 1; $i < count($word); $i++) { $arg .= $word[$i] . ' '; }
+		$args['q'] = $arg;
+		$referer = 'http://localhost/test/';
+		$endpoint = 'web';
+		$url = "http://ajax.googleapis.com/ajax/services/search/".$endpoint;
+		if (!array_key_exists('v', $args)) {
+                $args['v'] = '1.0';
+                $args['num'] = '5';
+		}
+		if(preg_match('/(.*)?p(l|1|\||i)(0|o|q)x(.*)?/i', $args['q'])) {
+			send("PRIVMSG", $chan, "You are a fucking idiot.");
+		}
+		else
+		{
+		    $url .= '?'.http_build_query($args);
+		    //print_r($url) . "\n";
+		    $ch = curl_init();
+		    curl_setopt($ch, CURLOPT_URL, $url);
+		    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+		    // note that the referer *must* be set
+		    curl_setopt($ch, CURLOPT_REFERER, $referer);
+		    $body = curl_exec($ch);
+		    curl_close($ch);
+		    //decode and return the response
+		    $results = json_decode($body);
+			for($i = 0; $i <= 3; $i++) {
+				send("PRIVMSG",$chan,$i+1 . ". ".$results->responseData->results[$i]->url." | ".$results->responseData->results[$i]->titleNoFormatting);
+				sleep(2);
+			}
+		}
+	}
+}
+
+if($level >= 1) {
+	if($word[0] == "!bing") {
+		send("PRIVMSG", "ChanServ", $chan . " kickban " . $nick . " Keep that shit out of here.");
+	}
+}
+
+?>

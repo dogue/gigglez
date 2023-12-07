@@ -1,0 +1,41 @@
+<?php
+
+// B3
+// Allows users to execute B3 commands on the servers
+
+if($level >= 600)
+{
+	if($word[0] == "!b3")
+    {
+		$server = get_server($word[1]); // Check that the server given is valid and runs B3
+		if(empty($server) || $server['b3'] == "0")
+        {
+			send("PRIVMSG",$chan,"Invalid server specified.");
+		}
+		else
+        {
+            if($word[2] == "!putgroup") // Discourage !putgroup commands
+            {                           // b3level does it better
+                send("PRIVMSG", $chan, "Don't be an asshole. Use !b3level for that.");
+            }
+            else
+            {   // Put the command and necessary components together and insert into the logfile
+                array_splice($word,0,2,"");
+                $command = implode(" ",$word);
+                ltrim($command);
+                $command = str_replace("'", '', $command);
+                $log = '/home/'.$server['user'].'/.q3a/q3ut4/'.$server['logfile'];
+                exec('echo \' 4:32 ClientUserinfo: 65 \ip\111.111.111.111:27960\challenge\1717202538\qport\37664\protocol\68\name\{[REDACTED]}Gigglez\rate\8000\cg_predictitems\0\snaps\20\model\sarge\headmodel\sarge\team_model\james\team_headmodel\*james\color1\4\color2\5\handicap\100\sex\male\cl_anonymous\0\teamtask\0\cl_guid\[REDACTED]\' >> '.$log);
+                sleep(1);
+		exec('echo \'tell: {[REDACTED]}Gigglez to {[REDACTED]}Gigglez: !login [REDACTED] \' >> '.$log);
+		sleep(1);
+		exec('echo \'saytell: 65 65 {[REDACTED]}Gigglez: !login [REDACTED] \' >> '.$log);
+		sleep(1);
+                exec('echo \'say: 65 {[REDACTED]}Gigglez: '.$command.'\' >> '.$log);
+                send("PRIVMSG",$chan,"Command issued...");
+            }
+		}
+	}
+}
+		
+?>

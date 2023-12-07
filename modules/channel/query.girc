@@ -1,0 +1,27 @@
+<?php
+
+if($level >= 300) {
+	if($word[0] == "!query") {
+		if(empty($word[1])) {
+			send("PRIVMSG",$chan,"You must specify a server (and a port if needed)");
+		}
+		else {
+			$server = $word[1];
+			if(empty($word[2])) {
+				$port = "27960";
+			}
+			else {
+				$port = $word[2];
+			}
+			$tool = new q3tool($server, $port, "");
+			if($tool->get_info("name") != null) {
+				send("PRIVMSG",$chan,$tool->get_info("players")."/".$tool->get_info("maxplayers")."	|	".$tool->get_info("name")."	|	".$tool->get_info("gametype")."	|	".$tool->get_info("map"));
+			}
+			else {
+				send("PRIVMSG",$chan,"Unable to retrieve server information...");
+			}
+		}
+	}
+}
+
+?>

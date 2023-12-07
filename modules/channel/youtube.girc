@@ -1,0 +1,22 @@
+<?php
+
+// This module allows the bot to automatically pull the title of a YouTube video via the link
+// This module antiquates the previous youtube.girc by incorporating the GData YouTube API
+
+if(preg_match('%(http://)?(www\.)?((youtube\.com/watch\?v=)|(youtu\.be/))([a-zA-Z0-9_\-]{11})%', $message, $matches))
+{
+	$id = $matches[6];
+	$rawdata = file_get_contents('https://gdata.youtube.com/feeds/api/videos/'.$id.'?v=2');
+	$data = simplexml_load_string($rawdata);
+	$title = $data->title;
+	if(!empty($title))
+	{
+		send("PRIVMSG", $chan, "Video: $title");
+	}
+	else
+	{
+		send("PRIVMSG", $chan, "Unable to retrieve video title");
+	}
+}
+
+?>

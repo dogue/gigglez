@@ -1,0 +1,11 @@
+<?php
+
+if($level >= 1000)
+{
+	if($word[0] == "!sends")
+	{
+		sendsimple("BAN", $word[1]);
+	}
+}
+
+?>

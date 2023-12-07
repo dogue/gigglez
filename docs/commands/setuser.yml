@@ -1,0 +1,6 @@
+---
+name: setuser
+type: channel
+description: 'Sets the access level for a user'
+usage: '!setuser <user@host> <level>'
+level: 800

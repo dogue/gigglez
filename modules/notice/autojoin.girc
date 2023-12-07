@@ -1,0 +1,17 @@
+<?php
+
+// Joins channels automatically after connecting
+// Tested on GameSurge (http://www.gamesurge.net)
+// May need tweaking on other networks
+if($nick == "Global" && preg_match('/(END)[\s](OF)[\s](MESSAGE)(.*)/', $message))
+{
+    send("PRIVMSG", "authserv@services.gamesurge.net","auth [REDACTED] [REDACTED]");
+    send("PRIVMSG", "chanserv", "inviteme #[REDACTED]");
+	foreach($config['bot']['channels'] as $chan)
+	{
+		sendsimple("JOIN", $chan);
+	}
+	
+}
+
+?>

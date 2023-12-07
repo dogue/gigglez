@@ -1,0 +1,23 @@
+<?php
+
+if($level >= 600) {
+	if($word[0] == "!slap") {
+		$server = get_server($word[1]);
+		if(empty($server)) {
+			send("PRIVMSG",$chan,"Invalid server specified.");
+		}
+		else {
+			if(empty($word[2])) {
+				send("PRIVMSG",$chan,"Correct usage: !slap server player");
+			}
+			else {
+					send("PRIVMSG",$chan,"Slapping " . $word[2] . "...");
+					$tool = new q3tool($server['address'], $server['port'], $server['password']);
+					$tool->send_rcon("slap " . $word[2]);
+				
+			}
+		}
+	}
+}
+
+?>

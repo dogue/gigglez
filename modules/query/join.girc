@@ -1,0 +1,11 @@
+<?php
+
+if($level >= 800)
+{
+	if($word[0] == ".join")
+	{
+		sendsimple("JOIN", $word[1]);
+	}
+}
+
+?>

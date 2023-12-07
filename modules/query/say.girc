@@ -1,0 +1,14 @@
+<?php
+
+if($level >= 800)
+{
+	if($word[0] == ".say") {
+		$say_chan = $word[1];
+		$say_trim = array("","");
+		array_splice($word,0,2,$say_trim);
+		$say = implode(" ",$word);
+		send("PRIVMSG",$say_chan,ltrim($say));
+	}
+}
+
+?>

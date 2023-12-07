@@ -1,0 +1,22 @@
+<?php
+
+if($level >= 1)
+{
+	if($message == "!mcplayers")
+	{
+		$mcsock = fsockopen("[REDACTED]", 31090, $errno, $errstr, true);
+		$playerData = fgets($mcsock);
+		$playerData = preg_replace('/:$/', '', $playerData);
+		$players = str_replace(':', ', ', $playerData);
+		if($players)
+		{
+			send("PRIVMSG", $chan, "Current Minecraft players: $players");
+		}
+		else
+		{
+			send("PRIVMSG", $chan, "Minecraft is currently empty.");
+		}
+	}
+}
+
+?>

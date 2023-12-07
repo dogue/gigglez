@@ -1,0 +1,71 @@
+<?php
+
+if($level >= 600) {
+	if($word[0] == "!guids") {
+		$server = get_server($word[1]);
+		if($chan == "#[REDACTED]" || $chan == "#[REDACTED]") {
+		if(empty($server)) {
+			send("PRIVMSG",$chan,"Invalid server specified.");
+		}
+		else {
+				//$pid_guids = pcntl_fork();
+			//	if($pid_guids) {
+					send("PRIVMSG",$chan,"Querying the server, please wait...");
+					sleep(1);
+					$tool = new q3tool($server['address'], $server['port'], $server['password']);
+					$player_count = $tool->get_info("players");
+					$name = $tool->get_info("name");
+					if($player_count >= 1) {
+						$players = $tool->get_info("playerlist");
+						send("PRIVMSG",$chan,"$name -- Player/GUID List");
+						$tool->send_rcon("sv_floodprotect 0");
+						sleep(1);
+						foreach($players as $player) {
+							//if(send_rcon($server, $port, $pass, "dumpuser ".$player['name'])) {
+								$user = $tool->send_rcon('dumpuser "'.$player['name'].'"');
+								if($user != null) {
+									$lines = explode("\n", $user);							
+									foreach($lines as $line) {
+										$test = explode(" ", $line);
+										$data = count($test) - 1;
+										$info[$test[0]] = $test[$data];
+									}
+									$guid = $info['cl_guid'];
+									$ip = $info['ip'];
+									//print_r($data);
+									send("PRIVMSG",$chan,$player['name']."	|	$ip	|	$guid");
+									$guid = "";
+									$ip = "";
+									$lines = array();
+									$user = "";
+									$test = array();
+									$data = "";
+									$info = array();
+									sleep(3);
+								}
+								else {
+									send("PRIVMSG",$chan,"-- TIMEOUT --");
+								}
+							//}
+							//else {
+								//send("PRIVMSG",$chan,"Timed out.");
+							//}
+						}
+						$tool->send_rcon("sv_floodprotect 1");
+						send("PRIVMSG",$chan,"-- End of List --");
+					}
+					else {
+						send("PRIVMSG",$chan,"$name is currently empty.");
+					}
+					//die();
+				//}
+			}
+		}
+		
+		else {
+			send("PRIVMSG",$chan,"That command isn't available in this channel.");
+		}
+	}
+}
+
+?>

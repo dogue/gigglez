@@ -1,0 +1,6 @@
+---
+name: exec
+type: channel
+description: 'Re-executes a server configuration'
+usage: '!exec <server>'
+level: 600

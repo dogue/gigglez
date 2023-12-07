@@ -1,0 +1,12 @@
+<?php
+
+if($level >= 800)
+{
+	if($word[0] == ".quit") {
+		send("NOTICE",$nick,"Going down in five...");
+		sleep(5);
+		die("SCRIPT END -- \"quit\" COMMAND ISSUED\n");
+	}
+}
+
+?>

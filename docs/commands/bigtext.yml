@@ -1,0 +1,6 @@
+---
+name: bigtext
+type: channel
+description: 'Sends a bigtext command to a server'
+usage: '!bigtext <server> <message>'
+level: 600

@@ -1,0 +1,6 @@
+---
+name: b3prune
+type: channel
+description: 'Allows you to remove several outdated B3 entries at once'
+usage: '!b3prune <server> <user ID 1> [user ID 2] ... [user ID n]'
+level: 600

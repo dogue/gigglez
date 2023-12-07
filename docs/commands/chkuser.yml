@@ -1,0 +1,6 @@
+---
+name: chkuser
+type: channel
+description: 'Returns the access level of a user'
+usage: '!chkuser <user@host>'
+level: 800

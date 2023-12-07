@@ -1,0 +1,6 @@
+---
+name: gigglez
+type: channel
+description: 'Returns a list of commands or help for a specific command'
+usage: '!gigglez [command]'
+level: 1

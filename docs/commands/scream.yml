@@ -1,0 +1,6 @@
+---
+name: scream
+type: channel
+description: 'Repeats a message five times in all caps to get attention'
+usage: '!scream <message>'
+level: 500

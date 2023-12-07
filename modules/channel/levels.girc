@@ -1,0 +1,27 @@
+<?php
+
+if($level >= 1){
+	if($word[0] == "!levels"){
+	//	$pid_levels = pcntl_fork();
+	//	if($pid_levels) {
+			send("PRIVMSG",$chan,"Level 0 - The ShitList.");
+			sleep(2);
+			send("PRIVMSG",$chan,"Level 1 - anyone and everyone");
+			sleep(2);
+			send("PRIVMSG",$chan,"Level 100 - basic users");
+			sleep(2);
+			send("PRIVMSG",$chan,"Level 300 - clan friends");
+			sleep(2);
+			send("PRIVMSG",$chan,"Level 500 - [REDACTED] members");
+			sleep(2);
+			send("PRIVMSG",$chan,"Level 600 - [REDACTED] admins");
+			sleep(2);
+			send("PRIVMSG",$chan,"Level 800 - Gigglez admins");
+			sleep(2);
+			send("PRIVMSG",$chan,"Level 1000 - [REDACTED]");
+		   // die();
+	//	}
+	}
+}
+
+?>

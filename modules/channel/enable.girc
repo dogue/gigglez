@@ -1,0 +1,33 @@
+<?php
+
+// Enable
+// Enabled a module and its help file
+
+if($level >= 800)
+{
+	if($word[0] == "!enable")
+    {
+		if(empty($word[1])) // No module given
+        {
+			send("PRIVMSG",$chan,"Usage: !enable <module name>");
+		}
+		else
+        {
+			$file = "../modules/channel/".$word[1].".girc.disabled";
+            $help = "../docs/commands/".$word[1].".yml.disabled";
+            
+			if(file_exists($file))
+            {
+				rename($file, "../modules/channel/".$word[1].".girc"); // Rename to original name
+                rename($help, "../docs/commands/".$word[1].".yml");    // ie. remove the .disabled
+				send("PRIVMSG",$chan,"Module: ".$word[1]." has been enabled.");
+			}
+			else // Couldn't find the module given
+            {
+				send("PRIVMSG",$chan,"Specified module not found. Please check the name and try again.");
+			}
+		}
+	}
+}
+
+?>

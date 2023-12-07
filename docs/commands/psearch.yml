@@ -1,0 +1,6 @@
+---
+name: psearch
+type: channel
+description: 'Searches a B3 database by player name and returns matches'
+usage: '!psearch <server> <search pattern>'
+level: 600

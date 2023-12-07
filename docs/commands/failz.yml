@@ -1,0 +1,6 @@
+---
+name: failz
+type: channel
+description: 'Returns a silly message that someone has failed'
+usage: '!failz [name]'
+level: 300

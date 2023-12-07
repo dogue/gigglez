@@ -1,0 +1,21 @@
+<?php
+
+if($level >= 800)
+{
+	if($word[0] == ".shutdown")
+	{
+		if(empty($word[1]))
+		{
+			send("NOTICE", $nick, "Going down NOW...");
+		}
+		else if(!empty($word[1]) && is_numeric($word[1]))
+		{
+			send("NOTICE", $nick, "Going down in ".$word[1]."...");
+			sleep($word[1]);
+		}
+		$pid = file_get_contents($path['core']."/pid");
+		posix_kill($pid, 15);
+	}
+}
+
+?>

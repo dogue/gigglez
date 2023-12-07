@@ -1,0 +1,17 @@
+<?php
+
+if($level >= 500) {
+	if($word[0] == "!cycle") {
+		$server = get_server($word[1]);
+		if(empty($server)) {
+			send("PRIVMSG",$chan,"Invalid server specified.");
+		}
+		else {
+				$tool = new q3tool($server['address'], $server['port'], $server['password']);
+				$tool->send_rcon("cyclemap");
+				send("PRIVMSG",$chan,"Cycling map...");		
+		}
+	}
+}
+
+?>

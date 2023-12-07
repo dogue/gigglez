@@ -1,0 +1,6 @@
+---
+name: dasboot
+type: channel
+description: 'Kicks a player from a server via RCON'
+usage: '!dasboot <server> <player name/client number>'
+level: 600

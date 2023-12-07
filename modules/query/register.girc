@@ -1,0 +1,19 @@
+<?php
+
+if($word[0] == ".register")
+{
+	if(!empty($word[2]))
+	{
+		$result = $user->register($word[1], $word[2], $hostmask);
+		if($result == 0)
+		{
+			send("PRIVMSG", $nick, "Successfully registered and logged in!");
+		}
+		elseif($result == ERR_USEREXISTS)
+		{
+			send("PRIVMSG", $nick, "That username is already registered.");
+		}
+	}
+}
+
+?>

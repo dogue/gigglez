@@ -1,0 +1,6 @@
+---
+name: rcon
+type: channel
+description: 'Sends an RCON command; only usable in #[REDACTED]'
+usage: '!rcon <server> <command>'
+level: 600

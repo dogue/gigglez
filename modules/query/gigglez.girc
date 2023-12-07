@@ -1,0 +1,51 @@
+<?php
+
+if($level >= 1)
+{
+	if($word[0] == "!gigglez")
+	{
+		$commands = glob($path['docs']."/commands/*.yml");
+		$command_list = array();
+		
+		foreach($commands as $command)
+		{
+			$info = Spyc::YAMLLoad($command);
+			if($level >= $info['level'])
+			{
+				array_push($command_list, $info);
+			}
+		}
+		if(empty($word[1]))
+		{			
+			if(!empty($command_list))
+			{
+				send("PRIVMSG", $nick, "Commands available for your level are:");
+				foreach($command_list as $entry)
+				{
+					send("PRIVMSG", $nick, $entry['name']);
+				}
+				send("PRIVMSG", $nick, "For help on a specific command, use !gigglez [command name]");
+			}
+		}
+		else
+		{
+			foreach($command_list as $entry)
+			{
+				if($word[1] == $entry['name'])
+				{
+					send("PRIVMSG", $nick, "Command: ".$entry['name']);
+					send("PRIVMSG", $nick, "Description: ".$entry['description']);
+					send("PRIVMSG", $nick, "Usage: ".$entry['usage']);
+					$match = true;
+				}
+			}
+			
+			if(!$match)
+			{
+				send("PRIVMSG", $nick, "Either that command doesn't exist, or no one wrote the documentation for it.");
+			}
+		}
+	}
+}
+
+?>

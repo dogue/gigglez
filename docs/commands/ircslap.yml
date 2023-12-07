@@ -1,0 +1,6 @@
+---
+name: ircslap
+type: channel
+description: 'A silly command that "slaps" user in IRC'
+usage: '!ircslap <name>'
+level: 600

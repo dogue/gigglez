@@ -1,0 +1,18 @@
+<?php
+
+if($level >= 600) {
+	if($word[0] == "!exec") {
+		$server = get_server($word[1]);
+		if(empty($server)) {
+			send("PRIVMSG",$chan,"Invalid server specified.");
+		}
+		else {
+			
+				$tool = new q3tool($server['address'], $server['port'], $server['password']);
+				$tool->send_rcon("exec ".$server['config']);
+				send("PRIVMSG",$chan,"Execing server config...");
+		}
+	}
+}
+
+?>

@@ -1,0 +1,15 @@
+<?php
+
+// Arrow Shield
+// Intended to discourage "arrow in the knee" jokes
+// Because no one thinks it's funny anymore.
+
+if($level < 1000)
+{
+	if(preg_match('/arrow/', $message) && preg_match('/knee/', $message))
+	{
+		send("PRIVMSG", "ChanServ", $chan. " kick " . $nick . " That joke is banned here.");
+	}
+}
+
+?>

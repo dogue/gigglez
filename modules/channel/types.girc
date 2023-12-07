@@ -1,0 +1,21 @@
+<?php
+
+if($level >= 1) {
+	if($message == "!types") {
+		send("PRIVMSG",$chan,"0	|	Free For All");
+		sleep(1);
+		send("PRIVMSG",$chan,"3	|	Team Deathmatch");
+		sleep(1);
+		send("PRIVMSG",$chan,"4	|	Team Survivor");
+		sleep(1);
+		send("PRIVMSG",$chan,"5	|	Follow The Leader");
+		sleep(1);
+		send("PRIVMSG",$chan,"6	|	Capture & Hold");
+		sleep(1);
+		send("PRIVMSG",$chan,"7	|	Capture The Flag");
+		sleep(1);
+		send("PRIVMSG",$chan,"8	|	Bomb Mode");
+	}
+}
+
+?>

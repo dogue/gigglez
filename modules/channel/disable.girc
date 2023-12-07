@@ -1,0 +1,30 @@
+<?php
+
+// Disable
+// Disables a specific module and its help file
+
+if($level >= 800)
+{
+	if($word[0] == "!disable")
+	{
+		if(empty($word[1])) // No module name given
+		{
+			send("PRIVMSG",$chan,"Usage: !disable <module name>");
+		}
+		else
+		{
+			$file = "../modules/channel/".$word[1].".girc";
+            $help = "../docs/commands/".$word[1].".yml";
+			if(file_exists($file))
+			{
+				rename($file, $file.".disabled"); // Rename to <original name>.disabled
+                rename($help, $help.".disabled");
+				send("PRIVMSG",$chan,"Module: ".$word[1]." has been disabled.");
+			}
+			else // Couldn't find the module given
+			{
+				send("PRIVMSG",$chan,"Specified module not found. Please check the name and try again.");
+			}
+		}
+	}
+}
